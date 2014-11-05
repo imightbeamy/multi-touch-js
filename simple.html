@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+	<style type="text/css">
+	
+	div {
+		width: 50px;
+		height: 50px;
+		background: red;
+		border-radius: 50%;
+		position: absolute;
+		-webkit-transform: translateZ(0);
+	}
+	
+	</style>
+	<script type="text/javascript">
+
+	var dots = {};
+
+	document.addEventListener('touchmove', function(event) {
+		event.preventDefault();
+
+		for (var i = 0; i < event.touches.length; i++) {
+			var touch = event.touches[i],
+			touch_id = touch.identifier;
+
+			if (!dots[touch_id]) {
+				dots[touch_id] = document.createElement("div");
+				document.body.appendChild(dots[touch_id]);
+			}
+
+			dots[touch_id].style.top = (touch.clientY - 25) + "px";
+			dots[touch_id].style.left = (touch.clientX - 25)+ "px";
+		};
+	});
+
+	</script>
+</head>
+<body></body>
+</html>

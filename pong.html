@@ -1,0 +1,180 @@
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title></title>
+    <style type="text/css">
+
+        div {
+            width: 200px;
+            height: 50px;
+            background: red;
+            top: 10px;
+            -webkit-transform: rotateY(1deg) rotateX(1deg);
+            position: absolute;
+            z-index: 1;
+            left: 50%;
+            top: 10%;
+        }
+
+        .ball {
+            background: blue;
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            position: absolute;
+            z-index: 0;
+        }
+
+        .active {
+            background: yellow;
+        }
+
+        body { 
+            overflow: hidden; 
+            width: 100%;
+            height: 100%;
+            margin: 0;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="paddle"></div>
+<div class="paddle"></div>
+
+<span class="ball"></span>
+
+<script type="text/javascript">
+
+var touches;
+var dots = {};
+
+var speed = {x: 5, y: 5 },
+    position = {x: 5, y: 5 },
+    size = 50,
+    ball = document.getElementsByClassName('ball')[0];
+
+    ball.style.height = ball.style.width = size + "px";
+
+function setPosistion() {
+    update();
+
+    if (touches) {
+        for (var i = touches.length - 1; i >= 0; i--) {
+            var touch = touches[i];
+
+            var dot = dots[touch.identifier];
+            if (dot) {
+                var width = touch.radiusX * 5;
+
+                dot.style.top = (touch.clientY - 25) + "px";
+                dot.style.left = (touch.clientX - 100)+ "px";
+                //dot.style.width = 100 + width + "px";
+            }
+        };
+
+        ball.style.top = (position.y - size/2)+ "px";
+        ball.style.left = (position.x - size/2)+ "px";
+    }
+}
+
+var paddles = document.getElementsByClassName('paddle');
+
+function update() {
+
+    var ball_rect = ball.getBoundingClientRect();
+    var touched_paddle = null;
+
+
+
+    for (var i = paddles.length - 1; i >= 0; i--) {
+        var paddle = paddles[i].getBoundingClientRect();
+        
+        var is_top_collision = 
+            paddle.top > ball_rect.top &&
+            paddle.top < ball_rect.bottom && 
+            paddle.left < ball_rect.left && 
+            paddle.right > ball_rect.right;
+        
+        var is_bottom_collision = 
+            paddle.bottom < ball_rect.bottom &&
+            paddle.bottom > ball_rect.top && 
+            paddle.left < ball_rect.left && 
+            paddle.right > ball_rect.right;
+
+        var is_left_collision = 
+            paddle.left > ball_rect.left &&
+            paddle.left < ball_rect.right &&
+            paddle.top < ball_rect.bottom && 
+            paddle.bottom > ball_rect.top;
+
+        var is_right_collision = 
+            paddle.right > ball_rect.left &&
+            paddle.right < ball_rect.right &&
+            paddle.top < ball_rect.bottom && 
+            paddle.bottom > ball_rect.top;
+
+        if (is_top_collision) {
+            speed.y = -Math.abs(speed.y);
+            position.y = paddle.top - ball_rect.height - speed.y;
+        } else if (is_bottom_collision) {
+            speed.y = Math.abs(speed.y);
+            position.y = paddle.bottom + ball_rect.height - speed.y;
+        } else if (is_left_collision) {
+            speed.x = -Math.abs(speed.x);
+            position.x = paddle.left - ball_rect.width - speed.x;
+        } else if (is_right_collision) {
+            speed.x = Math.abs(speed.x);
+            position.x = paddle.right + ball_rect.width - speed.x;
+        }
+    };
+
+    if (position.x < 0) {
+        speed.x = -speed.x;
+        position.x = 0;
+    } else if (position.x > document.body.clientWidth) {
+        speed.x = -speed.x;
+        position.x = document.body.clientWidth;
+    }
+    if (position.y < 0) {
+        position.y = 0;
+        speed.y = -speed.y;
+    } else if (position.y > document.body.clientHeight) {
+        position.y = document.body.clientHeight;
+        speed.y = -speed.y;
+    }
+
+    position.y += speed.y;
+    position.x += speed.x;
+}
+
+
+(function animloop(){
+  window.requestAnimationFrame(animloop);
+  setPosistion();
+})();
+    
+document.addEventListener('touchstart', function(event) {
+    touches = event.touches;
+    if (event.target.nodeName == "DIV") {
+        dots[event.targetTouches[0].identifier] = event.target;
+    }
+}, false);
+
+document.addEventListener('touchend', function(event) {
+    if (event.target.nodeName == "DIV") {
+        dots[event.changedTouches[0].identifier] = null;
+    }
+}, false);
+
+document.addEventListener('touchmove', function(event) {
+    event.preventDefault();
+    touches = event.touches;
+}, false);
+
+
+
+</script>
+
+</body></html>
