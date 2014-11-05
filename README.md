@@ -20,4 +20,4 @@ Now to hook up the device
 
 Plug in your device and open `localhost:8000`!
 
-You should see the index of the test files, open it and you're rolling.
+You should see the index of the test files, open one and you're rolling.
