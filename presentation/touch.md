@@ -1,4 +1,4 @@
-footer: AppsWorld
+footer: Apps World 2014
 slidenumbers: true
 
 ## An introduction to
@@ -51,15 +51,9 @@ https://github.com/imightbeamy/multi-touch-js
 
 # Here's a quick and easy way to do it...
 
-Want to follow along? Download the demos at
-https://github.com/imightbeamy/multi-touch-js
-
 ---
 
 # Use Chrome remote debugging!
-
-Want to follow along? Download the demos at 
-https://github.com/imightbeamy/multi-touch-js
 
 ---
 
