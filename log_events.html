@@ -7,6 +7,9 @@
 
 	function logEvent(event) {
 		console.log(event.type, event);
+		var p = document.createElement("p")
+		p.textContent = event.type;
+		document.body.appendChild(p);
 	}
 
 	document.addEventListener('touchmove', logEvent);
