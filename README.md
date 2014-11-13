@@ -3,6 +3,14 @@ Multitouch Javascript
 
 Presentation and demos on touch events in javascript
 
+Demos:
+* [drag and drop](https://rawgit.com/imightbeamy/multi-touch-js/master/drag_and_drop.html)
+* [log events](https://rawgit.com/imightbeamy/multi-touch-js/master/log_events.html)
+* [pong](https://rawgit.com/imightbeamy/multi-touch-js/master/pong.html)
+* [simple](https://rawgit.com/imightbeamy/multi-touch-js/master/simple.html)
+* [simple (with animation loop)](https://rawgit.com/imightbeamy/multi-touch-js/master/simple_with_animation_loop.html)
+* [simple (with remove)](https://rawgit.com/imightbeamy/multi-touch-js/master/simple_with_remove.html)
+
 # Loading these on a device
 
 First run a server on your local machine with these files
