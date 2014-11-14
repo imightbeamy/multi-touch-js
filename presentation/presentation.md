@@ -10,25 +10,28 @@ slidenumbers: true
 
 # Hi, I'm Amy
 
-### Engineer at Etsy.com
+### Developer at Etsy.com
 ### ~
-### @imightbeAmy
+### Formally on the Mobile Web team
+
 ---
 
 # [fit] Multitouch Javascript
 
 * How to test quickly
-* What multitouch events are avilable
+* What multitouch events are available
 * How to use those events (with examples)
 
-^ I'm going to give you an itroduction to what javscript and the browser has to offer in the way of mulittouch deveolpment. When you leave, I'd you should all be able to go out and start playing with this right away.
+^ I'm going to give you an introduction to what javscript and the browser has to offer in the way of multitouch development. When you leave, I'd you should all be able to go out and start playing with this right away.
+
+^ There's been a lot of talk today about apps vs web. Using multi touch on the web can make the experience feel much more native, and much smoother. And it's not as hard as you think!
 
 ---
 
 # [fit] Multitouch Javascript
 
 * *How to test quickly*
-* What multitouch events are avilable
+* What multitouch events are available
 * How to use those events (with examples)
 
 ---
@@ -36,22 +39,23 @@ slidenumbers: true
 # Testing!
 ## Get on a divice ASAP
 
-^ When I do other mobile web develpment, I start on a desktop. Mainly in dev tools in chrome, and that's useually good enough for a while before I need to move to an actual device. That's no the case when doing mulit touch!
+^ When I do other mobile web development, I start on a desktop. That's usually good enough for a while before I need to move to an actual device. That's no the case when doing mulittouch!
 
-^ You can used the Chrome emulator to get one touch point, but that's not super exciting.
+---
+
+![fit](images/small_window.png)
+
+---
+
+![fit](images/emulator.png)
 
 ---
 
 # You need to load your page on a multitouch device to *start* testing.
 
-Want to follow along? Download the demos at
-https://github.com/imightbeamy/multi-touch-js
+^ You can used the Chrome emulator to get one touch point, but that's not super exciting.
 
 ----
-
-# Here's a quick and easy way to do it...
-
----
 
 # Use Chrome remote debugging!
 
@@ -64,7 +68,11 @@ https://github.com/imightbeamy/multi-touch-js
 1. Run...
 `python -mSimpleHTTPServer`
 
-![left,filtered](running_server.png)
+![left,filtered](images/running_server.png)
+
+---
+
+![fit](images/running.png)
 
 ---
 
@@ -77,14 +85,14 @@ https://github.com/imightbeamy/multi-touch-js
 
 2 - Click "Port forwarding..."
 
-![inline](Portforward_2.png)
+![inline](images/Portforward_2.png)
 
 3 - Add a line for
     `localhost:8000`
 4 - Check 
     `Enable port forwarding`
 
-![right](Portforward_1.png)
+![right](images/Portforward_1.png)
 
 ---
 
@@ -94,7 +102,7 @@ https://github.com/imightbeamy/multi-touch-js
 
 # Open `localhost:8000` on your device!
 
-![inline](opentab.png)
+![inline](images/opentab.png)
 
 You should see the test file, open it and you're rolling.
 
@@ -104,11 +112,18 @@ You should see the test file, open it and you're rolling.
 
 ---
 
+# Tip
+![right fit](images/qr_code.png)
+
+"Simple QR Code Generator"
+
+---
+
 # [fit] Multitouch Javascript
 
 :heavy_check_mark: How to test quickly
 
-* *What multitouch events are avilable*
+* *What multitouch events are available*
 * How to use those events (with examples)
 
 ---
@@ -124,8 +139,6 @@ You should see the test file, open it and you're rolling.
 * `touches`
 * `targetTouches`
 * `changedTouches`
-
-^ But some of these are more useful than others for the three events
 
 Also the normal event stuff...
 
@@ -148,17 +161,6 @@ Also the normal event stuff...
 * `radiusX/Y`, `force`
 * `target`
 
----
-
-# Why three? 
-# `clientX/Y`, `pageX/Y`, `screenX/Y`?!
-
-`client` and `page` should mostly be the same.
-
-Screen is using the actual screen, so it will include the browser bar, tabs etc.
-
-![right fit](ScreenCordinates.png)
-
 --- 
 
 # [fit] `touchstart`
@@ -167,9 +169,7 @@ Screen is using the actual screen, so it will include the browser bar, tabs etc.
 
 # [fit] `touchmove`
 
-touchmove has the messiest default behovor so always `preventDefault()`!
-
-Don't bother with `changedTouches` here
+touchmove has the messiest default behavior so always `preventDefault()`!
 
 ---
 
@@ -187,50 +187,21 @@ Don't bother with `changedTouches` here
 
 ---
 
-# Example!
+# [fit] Multitouch Javascript
 
-```html
-<!DOCTYPE html>
-<html>
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <style type="text/css">
-    
-    div {
-        width: 50px;
-        height: 50px;
-        background: red;
-        border-radius: 50%;
-        position: absolute;
-    }
-    
-    </style>
-    <script type="text/javascript">
+:heavy_check_mark: How to test quickly
+:heavy_check_mark: What multitouch events are available
 
-    var dots = {};
+* *How to use those events*
 
-    document.addEventListener('touchmove', function(event) {
-        event.preventDefault();
+---
 
-        for (var i = 0; i < event.touches.length; i++) {
-            var touch = event.touches[i],
-            touch_id = touch.identifier;
+# Examples!
+![fit 250%](images/example_code.png)
 
-            if (!dots[touch_id]) {
-                dots[touch_id] = document.createElement("div");
-                document.body.appendChild(dots[touch_id]);
-            }
+Play with the demos at
+https://github.com/imightbeamy/multi-touch-js
 
-            dots[touch_id].style.top = (touch.clientY - 25) + "px";
-            dots[touch_id].style.left = (touch.clientX - 25)+ "px";
-        };
-    });
-
-    </script>
-</head>
-<body></body>
-</html>
-```
 ---
 
 # Viewport
@@ -240,6 +211,9 @@ Don't bother with `changedTouches` here
              initial-scale=1.0,
              user-scalable=no">
 ```
+
+^ Really important for 
+
 ---
 
 ```javascript
@@ -257,8 +231,8 @@ document.addEventListener('touchmove', function(event) {
             document.body.appendChild(dots[touch_id]);
         }
 
-        dots[touch_id].style.top = (touch.clientY - 25) + "px";
-        dots[touch_id].style.left = (touch.clientX - 25)+ "px";
+        dots[touch_id].style.top = (touch.clientY) + "px";
+        dots[touch_id].style.left = (touch.clientX)+ "px";
     };
 });
 ```
@@ -294,12 +268,12 @@ This means a lot less painting.
 
 ---
 
-![left autoplay](BadPainting.mov)
-![right autoplay](GoodPainting.mov)
+![left autoplay](images/BadPainting.mov)
+![right autoplay](images/GoodPainting.mov)
 
 ---
 
-## You have to move your figure before the point will register.
+## You have to move your figures before the points will register.
 # Let's fix that.
 
 ---
@@ -375,11 +349,20 @@ for (var i = divs.length - 1; i >= 0; i--) {
     divs[i].addEventListener('touchmove', function(event) {
         event.preventDefault();
         var touch = event.targetTouches[0];
-        this.style.top = (touch.clientY - 25) + "px";
-        this.style.left = (touch.clientX - 25)+ "px";
+        this.style.top = (touch.clientY) + "px";
+        this.style.left = (touch.clientX) + "px";
     });
 }
 ```
+
+---
+
+# Support
+
+![inline](images/support.png)
+
+http://caniuse.com/#feat=touch
+
 
 ---
 
@@ -399,4 +382,4 @@ for (var i = divs.length - 1; i >= 0; i--) {
 # @imightbeAmy
 ### or find me otherways at amyciavolino.com
 
-![loop right autoplay fit](Pong.mov)
+![loop right autoplay fit](images/Pong.mov)
